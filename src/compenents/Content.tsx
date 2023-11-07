@@ -52,8 +52,8 @@ export default function Content() {
     }
 
     return (
-        <Box>
-            <VStack w="100%" space={5} alignSelf="center">
+        <Box padding={5}>
+            <VStack w="100%" space={2} alignSelf="center">
                 <Image
                     src='https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2021/02/15/401255779.jpg'
                     alt="Alternate Text"
@@ -61,6 +61,9 @@ export default function Content() {
                     w={"100%"}
                     rounded={5}
                 />
+                <Box my={2} width={"100%"} justifyContent={"start"} alignItems={"start"}>
+                    <Text textAlign={"justify"}>Cari Hero favorit kalian, dan lihat apa saja kemampuannya! dan mulailah bermain game moba kok analog.</Text>
+                </Box>
                 <Input
                     mb={5}
                     value={keyword}
@@ -75,11 +78,13 @@ export default function Content() {
                     InputLeftElement={<Icon m="2" ml="3" size="6" color="violet.400" as={<MaterialIcons name="search" />} />}
                     InputRightElement={<Icon m="2" mr="3" size="6" color="violet.400" as={<MaterialIcons name="mic" />} />} />
             </VStack>
-            <ScrollView>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 {loading && <Spinner />}
                 {
                     !loading && filteredHero.map((heros: any) => (
-                        < VStack key={heros.hero_id} space={3} divider={< Divider />} w="100%" >
+                        < VStack key={heros.hero_id} space={1} divider={< Divider />} w="100%" >
                             {loading && <Spinner />}
                             {!loading && <HStack justifyContent="space-between" alignItems={"center"}>
                                 <Box display={"flex"} flexDirection={"row"} alignItems={"center"} width={"100%"} my={2} background={"violet.600"} p={2} rounded={10} shadow={3}>

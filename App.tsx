@@ -1,29 +1,78 @@
 import React from "react";
-import { NativeBaseProvider, Box, Text } from "native-base";
+import { NativeBaseProvider, Text, Box } from "native-base";
 import AppBar from "./src/compenents/AppBar";
 import Content from "./src/compenents/Content";
-import { QueryClient } from "react-query";
-import LottieView from 'lottie-react-native';
+import BottomBar from "./src/compenents/BottomBar";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+
+function HomeScreen() {
+  return (
+    <Box>
+      <Content />
+    </Box>
+  )
+}
+
+function SettingsScreen() {
+  return (
+    <Box>
+      <Text>Settings Screen!</Text>
+    </Box>
+  );
+}
 
 export default function App() {
 
-  const client = new QueryClient();
+  const Tab = createBottomTabNavigator();
 
   return (
     <NativeBaseProvider>
-      <AppBar />
-      <Box
-        padding={"2%"}
-      >
-        {/* <LottieView
-          source={"https://assets-v2.lottiefiles.com/a/7e8213a4-1182-11ee-a96f-cb8fa403e028/WYpWcexPuU.json"}
-          autoPlay loop /> */}
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            //Header
+            headerTitleStyle: {
+              color: 'white',
+              fontWeight: 'bold',
+            },
+            headerStyle: {
+              backgroundColor: 'purple.500',
+            },
 
-        <Text mb={2} textAlign={"justify"}>
-          Silahkan cari hero kalian, dan lihat apa role serta kemampuan spesialis dari setiap Hero!
-        </Text>
-        <Content />
-      </Box>
+            //Icon
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? 'ios-information-circle'
+                  : 'ios-information-circle-outline';
+              }
+              else if (route.name === 'Settings') {
+                iconName = focused
+                  ? 'ios-list'
+                  : 'ios-list-outline';
+              }
+
+              // You can return any component that you like here!
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'purple',
+
+          })}
+
+        >
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen} />
+          <Tab.Screen
+            name="Settings"
+            component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
