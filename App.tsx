@@ -1,11 +1,10 @@
 import React from "react";
 import { NativeBaseProvider, Text, Box } from "native-base";
-import AppBar from "./src/compenents/AppBar";
 import Content from "./src/compenents/Content";
-import BottomBar from "./src/compenents/BottomBar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import Info from "./src/compenents/Info";
 
 function HomeScreen() {
   return (
@@ -15,10 +14,10 @@ function HomeScreen() {
   )
 }
 
-function SettingsScreen() {
+function InfoScreen() {
   return (
     <Box>
-      <Text>Settings Screen!</Text>
+      <Info />
     </Box>
   );
 }
@@ -38,29 +37,33 @@ export default function App() {
               fontWeight: 'bold',
             },
             headerStyle: {
-              backgroundColor: 'purple.500',
+              backgroundColor: 'purple',
             },
-
+            tabBarStyle: {
+              backgroundColor: 'purple',
+            },
             //Icon
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
 
               if (route.name === 'Home') {
                 iconName = focused
-                  ? 'ios-information-circle'
-                  : 'ios-information-circle-outline';
+                  ? 'ios-planet'
+                  : 'ios-planet-outline';
               }
-              else if (route.name === 'Settings') {
+              else if (route.name === 'Info') {
                 iconName = focused
-                  ? 'ios-list'
-                  : 'ios-list-outline';
+                  ? 'ios-information'
+                  : 'ios-information-outline';
               }
+
+
 
               // You can return any component that you like here!
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'purple',
+            tabBarActiveTintColor: 'yellow',
+            tabBarInactiveTintColor: 'white',
 
           })}
 
@@ -69,8 +72,8 @@ export default function App() {
             name="Home"
             component={HomeScreen} />
           <Tab.Screen
-            name="Settings"
-            component={SettingsScreen} />
+            name="Info"
+            component={InfoScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
